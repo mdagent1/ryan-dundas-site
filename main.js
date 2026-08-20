@@ -175,15 +175,12 @@
     });
   });
 
-  /* ---------- CONTACT FORM ---------- */
+  /* ---------- CONTACT FORM (FormSubmit AJAX → Ryan's inbox) ---------- */
   const form = document.getElementById('contact-form');
   const successEl = document.getElementById('contact-success');
   const submitBtn = document.getElementById('submit-btn');
-
-  const encode = (data) =>
-    Object.keys(data)
-      .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-      .join('&');
+  // AJAX endpoint mirrors the form's action so submissions email Ryan without a page redirect.
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/dundasrw@gmail.com';
 
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -198,25 +195,28 @@
       const data = {};
       formData.forEach((v, k) => { data[k] = v; });
 
-      fetch('/', {
+      fetch(FORM_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(data),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
       })
-        .then((res) => {
-          if (!res.ok && res.status !== 0) throw new Error('Submit failed');
-          form.hidden = true;
-          if (successEl) successEl.hidden = false;
+        .then((res) => res.json())
+        .then((json) => {
+          if (json && (json.success === true || json.success === 'true')) {
+            form.hidden = true;
+            if (successEl) successEl.hidden = false;
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          } else {
+            // e.g. first-time activation pending — fall back to a full submit
+            // so FormSubmit's own flow (and confirmation) can complete.
+            form.submit();
+          }
         })
         .catch(() => {
-          // Local/no-Netlify fallback: still show success so the UX is verifiable.
-          // In production on Netlify, this branch only hits if the network fails.
-          form.hidden = true;
-          if (successEl) successEl.hidden = false;
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
+          // Network/CORS issue: fall back to a normal form POST so the
+          // message still goes through (uses the form's action + _next).
+          form.submit();
         });
     });
   }
