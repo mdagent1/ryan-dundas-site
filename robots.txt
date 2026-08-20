@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ryandundasmedia.com/sitemap.xml
+Sitemap: https://dundasmediaservices.com/sitemap.xml
