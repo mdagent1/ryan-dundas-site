@@ -77,7 +77,6 @@
   /* ---------- PORTFOLIO FILTER (scoped to the Work section) ---------- */
   const tabs = document.querySelectorAll('.filter-tab');
   const cards = document.querySelectorAll('#work .video-card');
-  const adsNote = document.querySelector('.ads-note[data-note="ads"]');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -103,9 +102,6 @@
           card.classList.add('refade');
         }
       });
-
-      // Show the "opens in Drive" note only while viewing Social Ads
-      if (adsNote) adsNote.hidden = !(filter === 'ads' || filter === 'all');
     });
   });
 

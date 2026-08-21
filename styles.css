@@ -650,7 +650,8 @@ body.nav-open .mobile-menu { transform: translateX(0); }
   flex-direction: column;
   gap: 0.5rem;
 }
-.video-meta h3 {
+.video-meta h3,
+.video-meta h4 {
   font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 600;
@@ -994,42 +995,26 @@ body.nav-open .mobile-menu { transform: translateX(0); }
   .hamburger { display: inline-flex; }
 }
 
-/* ---------- Social ad cards (link out to Drive) ---------- */
-.ad-card .ad-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 9;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(var(--accent-rgb), 0.18), transparent 60%),
-    linear-gradient(135deg, #1c1c1c, #0e0e0e);
-  color: var(--accent);
-  transition: filter var(--transition);
+/* ---------- Social ad cards (vertical YouTube Shorts) ---------- */
+/* Shorts are 9:16 — center the player in the card on a dark ground so the
+   card keeps a tidy height and the vertical video isn't pillarboxed oddly. */
+.ad-card lite-youtube {
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  background: #000;
 }
-.ad-card .ad-link:hover { filter: brightness(1.15); }
-.ad-play {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(var(--accent-rgb), 0.15);
-  border: 1.5px solid rgba(var(--accent-rgb), 0.5);
-  color: var(--accent);
-  transition: transform var(--transition), background var(--transition);
+
+/* ---------- Personal projects ---------- */
+.subgroup-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
 }
-.ad-card .ad-link:hover .ad-play {
-  transform: scale(1.08);
-  background: rgba(var(--accent-rgb), 0.25);
-}
-.ads-note {
-  margin: 1.5rem 0 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-align: center;
-}
+.personal .video-grid + .subgroup-title { margin-top: 3.5rem; }
 
 /* ---------- About gallery ---------- */
 .about-gallery {
