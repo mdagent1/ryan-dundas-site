@@ -650,8 +650,7 @@ body.nav-open .mobile-menu { transform: translateX(0); }
   flex-direction: column;
   gap: 0.5rem;
 }
-.video-meta h3,
-.video-meta h4 {
+.video-meta h3 {
   font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 600;
@@ -996,25 +995,13 @@ body.nav-open .mobile-menu { transform: translateX(0); }
 }
 
 /* ---------- Social ad cards (vertical YouTube Shorts) ---------- */
-/* Shorts are 9:16 — center the player in the card on a dark ground so the
-   card keeps a tidy height and the vertical video isn't pillarboxed oddly. */
+/* Shorts are 9:16. Fill the full card width so the vertical player has no dark
+   flanking bars; the card just becomes a taller vertical card. */
 .ad-card lite-youtube {
   aspect-ratio: 9 / 16;
   width: 100%;
-  max-width: 260px;
-  margin: 0 auto;
   background: #000;
 }
-
-/* ---------- Personal projects ---------- */
-.subgroup-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin: 2.5rem 0 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-.personal .video-grid + .subgroup-title { margin-top: 3.5rem; }
 
 /* ---------- About gallery ---------- */
 .about-gallery {
