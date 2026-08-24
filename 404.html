@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Ryan Dundas</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      try { if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light'); } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <main id="main" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+    <div class="container" style="max-width: 620px;">
+      <p class="hero-eyebrow" style="color: var(--accent);">Error 404</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0.5rem 0 1rem;">This shot didn't make the cut.</h1>
+      <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">The page you're looking for doesn't exist or has moved. Let's get you back to the work.</p>
+      <div class="hero-cta" style="justify-content: center;">
+        <a href="index.html" class="btn btn-primary">Back to Home</a>
+        <a href="index.html#work" class="btn btn-outline">See the Work</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

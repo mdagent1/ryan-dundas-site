@@ -85,8 +85,11 @@
       tabs.forEach(t => {
         const active = t === tab;
         t.classList.toggle('active', active);
-        t.setAttribute('aria-selected', String(active));
+        t.setAttribute('aria-pressed', String(active));
       });
+
+      // Switching filters always exits the "collapsed" state so every match shows.
+      grid && grid.classList.remove('collapsed');
 
       let shown = 0;
       cards.forEach(card => {
@@ -102,8 +105,41 @@
           card.classList.add('refade');
         }
       });
+
+      updateShowMore();
     });
   });
+
+  /* ---------- SHOW MORE (cap the default grid, filters still reveal all) ---------- */
+  const grid = document.querySelector('#work .video-grid');
+  const showMoreBtn = document.getElementById('work-show-more');
+  const COLLAPSE_AT = 9; // show this many before "Show more" appears (All view only)
+
+  // Only meaningful on the "All" view; other filters show their full (small) set.
+  const updateShowMore = () => {
+    if (!grid || !showMoreBtn) return;
+    const activeTab = document.querySelector('.filter-tab.active');
+    const isAll = !activeTab || activeTab.dataset.filter === 'all';
+    const total = cards.length;
+    if (isAll && total > COLLAPSE_AT) {
+      grid.classList.add('collapsed');
+      showMoreBtn.hidden = false;
+      showMoreBtn.textContent = 'Show all work';
+      showMoreBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      grid.classList.remove('collapsed');
+      showMoreBtn.hidden = true;
+    }
+  };
+
+  if (showMoreBtn && grid) {
+    showMoreBtn.addEventListener('click', () => {
+      grid.classList.remove('collapsed');
+      showMoreBtn.hidden = true;
+      showMoreBtn.setAttribute('aria-expanded', 'true');
+    });
+    updateShowMore();
+  }
 
   /* ---------- FAQ ACCORDION ---------- */
   const faqItems = document.querySelectorAll('.faq-item');
@@ -171,12 +207,26 @@
     });
   });
 
+  /* ---------- CONTACT EMAIL (assembled at runtime; kept out of static HTML) ----------
+     Ryan's address is base64-encoded so it never appears as plaintext in the page
+     source. We decode it here to wire the mailto link and the FormSubmit endpoints,
+     which defeats the overwhelming majority of email-harvesting scrapers. */
+  const CONTACT_EMAIL = (() => { try { return atob('ZHVuZGFzcndAZ21haWwuY29t'); } catch (e) { return ''; } })();
+
+  // Reveal the real mailto on the contact link(s).
+  document.querySelectorAll('.js-email').forEach((a) => {
+    if (!CONTACT_EMAIL) return;
+    a.href = 'mailto:' + CONTACT_EMAIL;
+    a.textContent = CONTACT_EMAIL;
+  });
+
   /* ---------- CONTACT FORM (FormSubmit AJAX → Ryan's inbox) ---------- */
   const form = document.getElementById('contact-form');
   const successEl = document.getElementById('contact-success');
   const submitBtn = document.getElementById('submit-btn');
-  // AJAX endpoint mirrors the form's action so submissions email Ryan without a page redirect.
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/dundasrw@gmail.com';
+  // Set the form's POST target at runtime (non-JS fallback), and the AJAX endpoint.
+  if (form && CONTACT_EMAIL) form.setAttribute('action', 'https://formsubmit.co/' + CONTACT_EMAIL);
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
 
   if (form) {
     form.addEventListener('submit', (e) => {
