@@ -85,8 +85,11 @@
       tabs.forEach(t => {
         const active = t === tab;
         t.classList.toggle('active', active);
-        t.setAttribute('aria-selected', String(active));
+        t.setAttribute('aria-pressed', String(active));
       });
+
+      // Switching filters always exits the "collapsed" state so every match shows.
+      grid && grid.classList.remove('collapsed');
 
       let shown = 0;
       cards.forEach(card => {
@@ -102,8 +105,41 @@
           card.classList.add('refade');
         }
       });
+
+      updateShowMore();
     });
   });
+
+  /* ---------- SHOW MORE (cap the default grid, filters still reveal all) ---------- */
+  const grid = document.querySelector('#work .video-grid');
+  const showMoreBtn = document.getElementById('work-show-more');
+  const COLLAPSE_AT = 9; // show this many before "Show more" appears (All view only)
+
+  // Only meaningful on the "All" view; other filters show their full (small) set.
+  const updateShowMore = () => {
+    if (!grid || !showMoreBtn) return;
+    const activeTab = document.querySelector('.filter-tab.active');
+    const isAll = !activeTab || activeTab.dataset.filter === 'all';
+    const total = cards.length;
+    if (isAll && total > COLLAPSE_AT) {
+      grid.classList.add('collapsed');
+      showMoreBtn.hidden = false;
+      showMoreBtn.textContent = 'Show all work';
+      showMoreBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      grid.classList.remove('collapsed');
+      showMoreBtn.hidden = true;
+    }
+  };
+
+  if (showMoreBtn && grid) {
+    showMoreBtn.addEventListener('click', () => {
+      grid.classList.remove('collapsed');
+      showMoreBtn.hidden = true;
+      showMoreBtn.setAttribute('aria-expanded', 'true');
+    });
+    updateShowMore();
+  }
 
   /* ---------- FAQ ACCORDION ---------- */
   const faqItems = document.querySelectorAll('.faq-item');

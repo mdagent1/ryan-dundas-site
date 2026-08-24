@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ryan Dundas — Video Production | Camera, Drone, Green Screen &amp; Editing (Orlando, FL)</title>
+  <title>Ryan Dundas — Video Production in Orlando, FL | Drone &amp; Green Screen</title>
   <meta name="description" content="Ryan Dundas is a freelance video production professional in Central Florida: run-and-gun camera work, drone video and photography, green screen and virtual studio production, virtual tours, and editing. Based in Orlando, available to travel.">
 
   <link rel="canonical" href="https://dundasmediaservices.com/">
@@ -36,13 +36,11 @@
   <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap">
+  <!-- Fonts (self-hosted — no third-party requests, no visitor-IP leak to Google) -->
+  <link rel="stylesheet" href="fonts/fonts.css">
 
-  <!-- lite-youtube-embed -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.css">
+  <!-- lite-youtube-embed (self-hosted, pinned v0.3.0 — no CDN single point of failure) -->
+  <link rel="stylesheet" href="vendor/lite-yt-embed.css">
 
   <!-- Site styles -->
   <link rel="stylesheet" href="styles.css">
@@ -208,7 +206,9 @@
       <div class="hero-video" aria-hidden="true">
         <!-- Self-hosted, muted, looping background reel. Poster paints instantly. -->
         <video id="hero-loop" class="hero-loop" autoplay muted loop playsinline
-               preload="auto" poster="images/hero-poster.webp">
+               preload="metadata" poster="images/hero-poster.webp">
+          <!-- Phones get the 1.2MB 720p cut; larger screens get the full 2.7MB file. -->
+          <source src="videos/hero-loop-720.mp4" media="(max-width: 768px)" type="video/mp4">
           <source src="videos/hero-loop.mp4" type="video/mp4">
         </video>
       </div>
@@ -262,7 +262,7 @@
           <li><img src="images/logo-diy-network.png" alt="DIY Network" loading="lazy" width="960" height="568"></li>
         </ul>
         <div class="reel-frame">
-          <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="fDi4uHp2Tq4" playlabel="Play: Ryan Dundas Drone Reel"></lite-youtube>
+          <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3" videoid="fDi4uHp2Tq4" playlabel="Play: Ryan Dundas Drone Reel"></lite-youtube>
         </div>
       </div>
     </section>
@@ -279,7 +279,7 @@
 
           <article class="featured-item">
             <div class="featured-video">
-              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="aGBeXRivRWo" playlabel="Play: Take A Chance For Charity, featuring Mark Tremonti"></lite-youtube>
+              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3" videoid="aGBeXRivRWo" playlabel="Play: Take A Chance For Charity, featuring Mark Tremonti"></lite-youtube>
             </div>
             <div class="featured-info">
               <span class="badge">Documentary</span>
@@ -291,7 +291,7 @@
 
           <article class="featured-item">
             <div class="featured-video">
-              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="nKdMWeFXFY4" playlabel="Play: Keke's Breakfast Cafe web commercial"></lite-youtube>
+              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3" videoid="nKdMWeFXFY4" playlabel="Play: Keke's Breakfast Cafe web commercial"></lite-youtube>
             </div>
             <div class="featured-info">
               <span class="badge">Commercial</span>
@@ -303,7 +303,7 @@
 
           <article class="featured-item">
             <div class="featured-video">
-              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="GUkbg-ew4P4" playlabel="Play: Mic Drop Sports Orlando Magic interviews"></lite-youtube>
+              <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3" videoid="GUkbg-ew4P4" playlabel="Play: Mic Drop Sports Orlando Magic interviews"></lite-youtube>
             </div>
             <div class="featured-info">
               <span class="badge">Interviews</span>
@@ -325,14 +325,14 @@
           <p>The full portfolio — commercials, documentary pieces, interviews, green screen production, and more. Filter by category.</p>
         </header>
 
-        <div class="filter-tabs" role="tablist" aria-label="Filter portfolio">
-          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" type="button">All</button>
-          <button class="filter-tab" data-filter="interview" role="tab" aria-selected="false" type="button">Interview</button>
-          <button class="filter-tab" data-filter="commercial" role="tab" aria-selected="false" type="button">Commercial &amp; Promo</button>
-          <button class="filter-tab" data-filter="documentary" role="tab" aria-selected="false" type="button">Documentary</button>
-          <button class="filter-tab" data-filter="greenscreen" role="tab" aria-selected="false" type="button">Green Screen</button>
-          <button class="filter-tab" data-filter="ads" role="tab" aria-selected="false" type="button">Social Ads</button>
-          <button class="filter-tab" data-filter="bts" role="tab" aria-selected="false" type="button">Behind the Scenes</button>
+        <div class="filter-tabs" role="group" aria-label="Filter portfolio by category">
+          <button class="filter-tab active" data-filter="all" aria-pressed="true" type="button">All</button>
+          <button class="filter-tab" data-filter="interview" aria-pressed="false" type="button">Interview</button>
+          <button class="filter-tab" data-filter="commercial" aria-pressed="false" type="button">Commercial &amp; Promo</button>
+          <button class="filter-tab" data-filter="documentary" aria-pressed="false" type="button">Documentary</button>
+          <button class="filter-tab" data-filter="greenscreen" aria-pressed="false" type="button">Green Screen</button>
+          <button class="filter-tab" data-filter="ads" aria-pressed="false" type="button">Social Ads</button>
+          <button class="filter-tab" data-filter="bts" aria-pressed="false" type="button">Behind the Scenes</button>
         </div>
 
         <div class="video-grid">
@@ -509,7 +509,7 @@
             <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="cok1Rf89cFE" playlabel="Play: Business Video Solutions behind the scenes 1"></lite-youtube>
             <div class="video-meta">
               <span class="badge">Behind the Scenes</span>
-              <h3>Business Video Solutions — BTS</h3>
+              <h3>Business Video Solutions — On Set</h3>
               <p>On set with the BVS production team.</p>
             </div>
           </article>
@@ -518,11 +518,14 @@
             <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="HqENB9LKoH4" playlabel="Play: Business Video Solutions behind the scenes 2"></lite-youtube>
             <div class="video-meta">
               <span class="badge">Behind the Scenes</span>
-              <h3>Business Video Solutions — BTS</h3>
+              <h3>Business Video Solutions — Behind the Camera</h3>
               <p>More from behind the camera with BVS.</p>
             </div>
           </article>
 
+        </div>
+        <div class="work-more">
+          <button id="work-show-more" class="btn btn-outline" type="button" aria-controls="work" hidden>Show all work</button>
         </div>
       </div>
     </section>
@@ -818,6 +821,7 @@
     <div class="container footer-inner">
       <span>© 2026 Ryan Dundas. All rights reserved.</span>
       <nav class="footer-links" aria-label="Footer">
+        <a href="privacy.html">Privacy</a>
         <a href="https://www.linkedin.com/in/ryan-dundas-media/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://www.youtube.com/@ryandundas2851" target="_blank" rel="noopener">YouTube</a>
         <a href="https://vimeo.com/ryandundas" target="_blank" rel="noopener">Vimeo</a>
@@ -826,7 +830,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.js" defer></script>
+  <script src="vendor/lite-yt-embed.js" defer></script>
   <script src="main.js" defer></script>
 </body>
 </html>
