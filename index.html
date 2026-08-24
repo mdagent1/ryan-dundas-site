@@ -64,7 +64,6 @@
     "@type": "Person",
     "name": "Ryan Dundas",
     "url": "https://dundasmediaservices.com",
-    "email": "dundasrw@gmail.com",
     "jobTitle": "Video Production Professional",
     "worksFor": { "@type": "Organization", "name": "Business Video Solutions" },
     "address": { "@type": "PostalAddress", "addressLocality": "Orlando", "addressRegion": "FL", "addressCountry": "US" },
@@ -85,7 +84,6 @@
     "name": "Ryan Dundas Media",
     "description": "Freelance video production in Central Florida: camera work, drone video and photography, green screen production, virtual tours, and editing.",
     "url": "https://dundasmediaservices.com",
-    "email": "dundasrw@gmail.com",
     "image": "https://dundasmediaservices.com/images/og-image.jpg",
     "priceRange": "$$-$$$",
     "areaServed": { "@type": "City", "name": "Orlando, FL" },
@@ -236,15 +234,16 @@
           <span class="trust-eyebrow">As seen on</span>
           <span class="trust-networks"><strong>HGTV</strong><span class="dot">·</span><strong>Lifetime</strong><span class="dot">·</span><strong>DIY Network</strong></span>
         </p>
-        <!-- Client wordmarks. Drop in real SVG/PNG logos later to replace the text. -->
+        <!-- Client logos, monochrome-silhouetted via CSS for a uniform look.
+             Mic Drop Sports has no available logo (site defunct) → text wordmark. -->
         <ul class="logo-bar" aria-label="Selected clients">
-          <li>AdventHealth</li>
-          <li>Keke's Breakfast Cafe</li>
-          <li>Mic Drop Sports</li>
-          <li>Fed Gov Today</li>
-          <li>NDSS Lumind</li>
-          <li>Business Video Solutions</li>
-          <li>Weediatrics</li>
+          <li><img src="images/clients/adventhealth.svg" alt="AdventHealth" loading="lazy"></li>
+          <li class="logo-text">Keke's Breakfast Cafe</li>
+          <li class="logo-text">Mic Drop Sports</li>
+          <li><img src="images/clients/fedgovtoday.svg" alt="Fed Gov Today" loading="lazy"></li>
+          <li><img src="images/clients/ndss.svg" alt="NDSS Lumind" loading="lazy"></li>
+          <li><img src="images/clients/bvs.png" alt="Business Video Solutions" loading="lazy"></li>
+          <li><img src="images/clients/weediatrics.png" alt="Weediatrics" loading="lazy"></li>
         </ul>
       </div>
     </section>
@@ -724,8 +723,9 @@
           <p>Tell me about your project and I'll get back to you within 24 hours.</p>
         </header>
 
-        <form action="https://formsubmit.co/dundasrw@gmail.com" method="POST" class="contact-form" id="contact-form">
-          <!-- FormSubmit.co: emails submissions to Ryan's inbox, no backend needed -->
+        <form method="POST" class="contact-form" id="contact-form">
+          <!-- FormSubmit.co endpoint (with Ryan's address) is assembled by main.js at
+               runtime so the email never appears in the page source for scrapers. -->
           <input type="hidden" name="_subject" value="New inquiry from dundasmediaservices.com">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
@@ -792,7 +792,7 @@
         <div class="contact-details">
           <div class="contact-detail">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <a href="mailto:dundasrw@gmail.com">dundasrw@gmail.com</a>
+            <a href="#contact" class="js-email">Email Ryan</a>
           </div>
           <div class="contact-detail">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>

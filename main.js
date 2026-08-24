@@ -207,12 +207,26 @@
     });
   });
 
+  /* ---------- CONTACT EMAIL (assembled at runtime; kept out of static HTML) ----------
+     Ryan's address is base64-encoded so it never appears as plaintext in the page
+     source. We decode it here to wire the mailto link and the FormSubmit endpoints,
+     which defeats the overwhelming majority of email-harvesting scrapers. */
+  const CONTACT_EMAIL = (() => { try { return atob('ZHVuZGFzcndAZ21haWwuY29t'); } catch (e) { return ''; } })();
+
+  // Reveal the real mailto on the contact link(s).
+  document.querySelectorAll('.js-email').forEach((a) => {
+    if (!CONTACT_EMAIL) return;
+    a.href = 'mailto:' + CONTACT_EMAIL;
+    a.textContent = CONTACT_EMAIL;
+  });
+
   /* ---------- CONTACT FORM (FormSubmit AJAX → Ryan's inbox) ---------- */
   const form = document.getElementById('contact-form');
   const successEl = document.getElementById('contact-success');
   const submitBtn = document.getElementById('submit-btn');
-  // AJAX endpoint mirrors the form's action so submissions email Ryan without a page redirect.
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/dundasrw@gmail.com';
+  // Set the form's POST target at runtime (non-JS fallback), and the AJAX endpoint.
+  if (form && CONTACT_EMAIL) form.setAttribute('action', 'https://formsubmit.co/' + CONTACT_EMAIL);
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
 
   if (form) {
     form.addEventListener('submit', (e) => {

@@ -519,21 +519,43 @@ html.light .network-logos img { filter: invert(1); opacity: 0.7; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1rem 2.5rem;
+  gap: 1.5rem 2.75rem;
 }
 .logo-bar li {
+  display: flex;
+  align-items: center;
+}
+/* Client logos come from many sources (some color, some white-only). Render them
+   all as one monochrome tone so the strip reads as a single, intentional set:
+   white silhouettes on the dark strip, black silhouettes in light theme. */
+.logo-bar img {
+  height: 30px;
+  width: auto;
+  max-width: 148px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.62;
+  transition: opacity var(--transition);
+}
+.logo-bar img:hover { opacity: 1; }
+html.light .logo-bar img { filter: brightness(0); opacity: 0.55; }
+html.light .logo-bar img:hover { opacity: 0.9; }
+/* One client (Mic Drop Sports) has no available logo — styled text wordmark. */
+.logo-bar .logo-text {
   color: var(--text-secondary);
   font-weight: 600;
   font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  opacity: 0.75;
-  transition: opacity var(--transition), color var(--transition);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  opacity: 0.62;
+  transition: opacity var(--transition);
   white-space: nowrap;
 }
-.logo-bar li:hover { opacity: 1; color: var(--accent); }
+.logo-bar .logo-text:hover { opacity: 1; }
 @media (max-width: 600px) {
-  .logo-bar { gap: 0.85rem 1.5rem; }
-  .logo-bar li { font-size: 0.85rem; }
+  .logo-bar { gap: 1.15rem 1.75rem; }
+  .logo-bar img { height: 24px; max-width: 116px; }
+  .logo-bar .logo-text { font-size: 0.85rem; }
 }
 
 /* ---------- Featured work (alternating case-study rows) ---------- */
