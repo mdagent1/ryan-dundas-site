@@ -442,8 +442,36 @@ body.nav-open .mobile-menu { transform: translateX(0); }
 }
 .reel-frame lite-youtube {
   width: 100%;
+  /* lite-youtube ships a default max-width:720px, which left-pins the player
+     inside the 960px frame (looks off-center). Let it fill the frame. */
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 0;
+}
+
+/* ---------- Network logos (Drone Reel: aired on HGTV / Lifetime / DIY) ---------- */
+.network-logos {
+  list-style: none;
+  margin: 0 auto 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem 2.75rem;
+}
+.network-logos img {
+  height: 34px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  opacity: 0.85;
+  /* Logos are white PNGs (built for dark bg); flip to dark in light theme. */
+}
+html.light .network-logos img { filter: invert(1); opacity: 0.7; }
+@media (max-width: 600px) {
+  .network-logos { gap: 1.25rem 1.75rem; }
+  .network-logos img { height: 28px; max-width: 104px; }
 }
 
 /* ---------- Trust strip (TV credit + client logos) ---------- */

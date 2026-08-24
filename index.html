@@ -256,6 +256,11 @@
           <h2>Drone Reel</h2>
           <p>Aerial cinematography that has aired on HGTV, Lifetime, and DIY Network.</p>
         </header>
+        <ul class="network-logos" aria-label="Aired on HGTV, Lifetime, and DIY Network">
+          <li><img src="images/logo-hgtv.png" alt="HGTV" loading="lazy" width="512" height="512"></li>
+          <li><img src="images/logo-lifetime.png" alt="Lifetime" loading="lazy" width="1280" height="389"></li>
+          <li><img src="images/logo-diy-network.png" alt="DIY Network" loading="lazy" width="960" height="568"></li>
+        </ul>
         <div class="reel-frame">
           <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="fDi4uHp2Tq4" playlabel="Play: Ryan Dundas Drone Reel"></lite-youtube>
         </div>
@@ -322,9 +327,9 @@
 
         <div class="filter-tabs" role="tablist" aria-label="Filter portfolio">
           <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" type="button">All</button>
+          <button class="filter-tab" data-filter="interview" role="tab" aria-selected="false" type="button">Interview</button>
           <button class="filter-tab" data-filter="commercial" role="tab" aria-selected="false" type="button">Commercial &amp; Promo</button>
           <button class="filter-tab" data-filter="documentary" role="tab" aria-selected="false" type="button">Documentary</button>
-          <button class="filter-tab" data-filter="interview" role="tab" aria-selected="false" type="button">Interviews</button>
           <button class="filter-tab" data-filter="greenscreen" role="tab" aria-selected="false" type="button">Green Screen</button>
           <button class="filter-tab" data-filter="ads" role="tab" aria-selected="false" type="button">Social Ads</button>
           <button class="filter-tab" data-filter="bts" role="tab" aria-selected="false" type="button">Behind the Scenes</button>
@@ -332,13 +337,41 @@
 
         <div class="video-grid">
 
+          <!-- Interviews -->
+          <article class="video-card" data-category="interview">
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="uWWjHY3naAc" playlabel="Play: Fed Gov Today interview"></lite-youtube>
+            <div class="video-meta">
+              <span class="badge">Interview</span>
+              <h3>Fed Gov Today</h3>
+              <p>Interview production for the government-affairs show.</p>
+            </div>
+          </article>
+
+          <article class="video-card" data-category="interview">
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="ANJbrKU1lys" playlabel="Play: NDSS Lumind interview production"></lite-youtube>
+            <div class="video-meta">
+              <span class="badge">Interview</span>
+              <h3>NDSS Lumind</h3>
+              <p>Virtual studio production.</p>
+            </div>
+          </article>
+
           <!-- Commercial / Promo -->
           <article class="video-card" data-category="commercial">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="EI-oxk7pZ2g" playlabel="Play: Blake Hanson hair stylist feature"></lite-youtube>
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="rIu64ScMTV4" playlabel="Play: My Pet Peed sales video"></lite-youtube>
             <div class="video-meta">
               <span class="badge">Commercial</span>
-              <h3>Blake Hanson — Hair Stylist</h3>
-              <p>Brand feature for a professional hair stylist.</p>
+              <h3>My Pet Peed</h3>
+              <p>Sales video for the pet-stain and odor brand.</p>
+            </div>
+          </article>
+
+          <article class="video-card" data-category="commercial">
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="gSdTjHUMNfM" playlabel="Play: IV Lounge commercial"></lite-youtube>
+            <div class="video-meta">
+              <span class="badge">Commercial</span>
+              <h3>IV Lounge</h3>
+              <p>Commercial for the wellness and IV therapy lounge.</p>
             </div>
           </article>
 
@@ -352,20 +385,11 @@
           </article>
 
           <article class="video-card" data-category="commercial">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="gMVzKcINzM8" playlabel="Play: Weediatrics streaming web promo"></lite-youtube>
-            <div class="video-meta">
-              <span class="badge">Promo</span>
-              <h3>Weediatrics</h3>
-              <p>Streaming web promo.</p>
-            </div>
-          </article>
-
-          <article class="video-card" data-category="commercial">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="rIu64ScMTV4" playlabel="Play: My Pet Peed sales video"></lite-youtube>
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="EI-oxk7pZ2g" playlabel="Play: Blake Hanson hair stylist feature"></lite-youtube>
             <div class="video-meta">
               <span class="badge">Commercial</span>
-              <h3>My Pet Peed</h3>
-              <p>Sales video for the pet-stain and odor brand.</p>
+              <h3>Blake Hanson — Hair Stylist</h3>
+              <p>Brand feature for a professional hair stylist.</p>
             </div>
           </article>
 
@@ -379,15 +403,24 @@
           </article>
 
           <article class="video-card" data-category="commercial">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="gSdTjHUMNfM" playlabel="Play: IV Lounge commercial"></lite-youtube>
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="gMVzKcINzM8" playlabel="Play: Weediatrics streaming web promo"></lite-youtube>
             <div class="video-meta">
-              <span class="badge">Commercial</span>
-              <h3>IV Lounge</h3>
-              <p>Commercial for the wellness and IV therapy lounge.</p>
+              <span class="badge">Promo</span>
+              <h3>Weediatrics</h3>
+              <p>Streaming web promo.</p>
             </div>
           </article>
 
           <!-- Documentary -->
+          <article class="video-card" data-category="documentary">
+            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="ivFlOm5ICNg" playlabel="Play: Advent Health For Children documentary"></lite-youtube>
+            <div class="video-meta">
+              <span class="badge">Documentary</span>
+              <h3>Advent Health For Children</h3>
+              <p>Healthcare storytelling piece for Advent Health For Children.</p>
+            </div>
+          </article>
+
           <article class="video-card" data-category="documentary">
             <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="qHj0-D8p5w4" playlabel="Play: Miles Christi feature"></lite-youtube>
             <div class="video-meta">
@@ -397,26 +430,7 @@
             </div>
           </article>
 
-          <!-- Interviews -->
-          <article class="video-card" data-category="interview">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="uWWjHY3naAc" playlabel="Play: Fed Gov Today interview"></lite-youtube>
-            <div class="video-meta">
-              <span class="badge">Interview</span>
-              <h3>Fed Gov Today</h3>
-              <p>Interview production for the government-affairs show.</p>
-            </div>
-          </article>
-
           <!-- Green Screen -->
-          <article class="video-card" data-category="greenscreen">
-            <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="ANJbrKU1lys" playlabel="Play: NDSS Lumind green screen production"></lite-youtube>
-            <div class="video-meta">
-              <span class="badge">Green Screen</span>
-              <h3>NDSS Lumind</h3>
-              <p>Virtual studio production.</p>
-            </div>
-          </article>
-
           <article class="video-card" data-category="greenscreen">
             <lite-youtube params="rel=0&amp;modestbranding=1&amp;playsinline=1&amp;controls=0&amp;iv_load_policy=3" videoid="ZeteRy7D_yE" playlabel="Play: BrainShift virtual studio production"></lite-youtube>
             <div class="video-meta">
