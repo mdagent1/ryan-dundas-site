@@ -1053,6 +1053,11 @@ html.light .logo-bar img:hover { opacity: 0.9; }
 }
 .footer-links a { color: var(--text-secondary); }
 .footer-links a:hover { color: var(--accent); }
+/* designer credit (2026-09-22): brand-name anchor only; noopener without noreferrer keeps the referral visible in analytics */
+.footer-meta { display: flex; flex-direction: column; gap: 0.25rem; }
+.footer-credit { font-size: 0.8rem; }
+.footer-credit a { color: var(--text-secondary); }
+.footer-credit a:hover { color: var(--accent); }
 
 /* ---------- Mobile nav ---------- */
 @media (max-width: 768px) {
