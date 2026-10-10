@@ -477,7 +477,7 @@ html.light .network-logos img { filter: invert(1); opacity: 0.7; }
   .network-logos img { height: 28px; max-width: 104px; }
 }
 
-/* ---------- Trust strip (TV credit + client logos) ---------- */
+/* ---------- Trust strip (past clients + past employers) ---------- */
 .trust {
   padding: 2.75rem 0;
   border-bottom: 1px solid var(--border);
@@ -495,21 +495,10 @@ html.light .network-logos img { filter: invert(1); opacity: 0.7; }
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
-.trust-networks {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 3vw, 1.9rem);
-  color: var(--text-primary);
-}
-.trust-networks strong { font-weight: 700; }
-.trust-networks .dot { color: var(--accent); font-weight: 700; }
+.trust-employers { margin-top: 2.5rem; }
 
 .logo-bar {
   list-style: none;
@@ -540,22 +529,13 @@ html.light .network-logos img { filter: invert(1); opacity: 0.7; }
 .logo-bar img:hover { opacity: 1; }
 html.light .logo-bar img { filter: brightness(0); opacity: 0.55; }
 html.light .logo-bar img:hover { opacity: 0.9; }
-/* One client (Mic Drop Sports) has no available logo — styled text wordmark. */
-.logo-bar .logo-text {
-  color: var(--text-secondary);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  opacity: 0.62;
-  transition: opacity var(--transition);
-  white-space: nowrap;
-}
-.logo-bar .logo-text:hover { opacity: 1; }
+/* Stacked or near-square marks (Keke's, AL Media, True Entertainment) read too
+   small at the strip's 30px height, so they get more. */
+.logo-bar img.logo-stacked { height: 48px; }
 @media (max-width: 600px) {
   .logo-bar { gap: 1.15rem 1.75rem; }
   .logo-bar img { height: 24px; max-width: 116px; }
-  .logo-bar .logo-text { font-size: 0.85rem; }
+  .logo-bar img.logo-stacked { height: 38px; }
 }
 
 /* ---------- Featured work (alternating case-study rows) ---------- */
@@ -634,8 +614,47 @@ html.light .logo-bar img:hover { opacity: 0.9; }
   transition: transform 400ms ease;
 }
 .onset-item:hover img { transform: scale(1.04); }
+.onset-item.pos-top img { object-position: center top; }
 @media (max-width: 900px) { .onset-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .onset-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Reality TV (10+ years, post + camera dept) ---------- */
+.rtv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+.rtv-copy .badge { margin-bottom: 0.9rem; }
+.rtv-copy h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 1rem;
+}
+.rtv-copy > p {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  margin: 0 0 1.25rem;
+}
+.rtv-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.rtv-photo {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.rtv-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 900px) {
+  .rtv-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
 
 /* ---------- Filter tabs ---------- */
 .filter-tabs {
@@ -741,8 +760,45 @@ html.light .logo-bar img:hover { opacity: 0.9; }
 
 /* ---------- Services ---------- */
 /* Section grounds alternate dark / secondary down the page so the long scroll
-   reads as distinct chapters (reel·work·services dark, featured·onset·about secondary). */
-.services { }
+   reads as distinct chapters: reel, work, reality TV, AI video + start-a-project
+   dark; featured, on set, services, about secondary. */
+.services { background: var(--bg-secondary); }
+.services .process { margin-bottom: 0; }
+/* Start-a-project + FAQ continue the AI-video chapter on the same ground. */
+.next-step { padding-top: 0; }
+
+/* Crew roles: book Ryan for one position on a production. */
+.crew-roles {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 5rem;
+}
+.crew-roles h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 0 0 0.5rem;
+}
+.crew-roles > p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+}
+.crew-role-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 0.7rem;
+}
+.crew-role-list li {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.06);
+}
 
 .service-grid {
   display: grid;
@@ -1109,6 +1165,9 @@ html.light .logo-bar img:hover { opacity: 0.9; }
 .has-reveal .reel-frame:not(.rvd),
 .has-reveal .video-card:not(.rvd),
 .has-reveal .onset-item:not(.rvd),
+.has-reveal .rtv-copy:not(.rvd),
+.has-reveal .rtv-photo:not(.rvd),
+.has-reveal .crew-roles:not(.rvd),
 .has-reveal .service-card:not(.rvd),
 .has-reveal .process-step:not(.rvd),
 .has-reveal .about-photo:not(.rvd),
@@ -1133,6 +1192,9 @@ html.light .logo-bar img:hover { opacity: 0.9; }
 .has-reveal .reel-frame.is-visible,
 .has-reveal .video-card.is-visible,
 .has-reveal .onset-item.is-visible,
+.has-reveal .rtv-copy.is-visible,
+.has-reveal .rtv-photo.is-visible,
+.has-reveal .crew-roles.is-visible,
 .has-reveal .service-card.is-visible,
 .has-reveal .process-step.is-visible,
 .has-reveal .about-photo.is-visible,
@@ -1169,6 +1231,9 @@ html.light .logo-bar img:hover { opacity: 0.9; }
   .has-reveal .reel-frame,
   .has-reveal .video-card,
   .has-reveal .onset-item,
+  .has-reveal .rtv-copy,
+  .has-reveal .rtv-photo,
+  .has-reveal .crew-roles,
   .has-reveal .service-card,
   .has-reveal .process-step,
   .has-reveal .about-photo,

@@ -272,7 +272,8 @@
   const revealSelector = [
     '.hero-content > *', '.trust-tv', '.logo-bar', '.featured-item',
     '.section-header', '.reel-frame', '.video-card',
-    '.onset-item', '.service-card', '.process-step', '.about-photo',
+    '.onset-item', '.rtv-copy', '.rtv-photo', '.crew-roles',
+    '.service-card', '.process-step', '.about-photo',
     '.about-text', '.about-gallery figure', '.contact-form', '.contact-details'
   ].join(',');
   const revealEls = Array.from(document.querySelectorAll(revealSelector));
