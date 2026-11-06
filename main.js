@@ -18,6 +18,45 @@
     heroVideo.pause();
   }
 
+  /* ---------- VIRTUAL TOUR (click to load) ----------
+     The tour iframe (3DVista hosting on net-fs.com) is only created when the visitor
+     asks for it, so nothing third-party loads with the page. Without JS the link
+     simply opens the tour in a new tab. */
+  document.querySelectorAll('.tour-start').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // let "open in new tab" work
+      e.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = link.href;
+      iframe.title = link.dataset.tourTitle || 'Virtual tour';
+      // Ryan's embed code minus camera/microphone (a tour never needs them) and the
+      // non-standard "vr; xr" tokens browsers reject. VR headsets use xr-spatial-tracking.
+      iframe.allow = 'fullscreen; accelerometer; gyroscope; magnetometer; xr-spatial-tracking; autoplay';
+      iframe.setAttribute('allowfullscreen', '');
+      link.replaceWith(iframe);
+      iframe.focus();
+    });
+  });
+
+  /* ---------- ANIMATED LOGO (contact) ----------
+     Play only while on screen; reduced-motion visitors keep the still poster. */
+  const logoVideo = document.querySelector('.contact-logo-video');
+  if (logoVideo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logoVideo.play().catch(() => {});
+          } else if (!logoVideo.paused) {
+            logoVideo.pause();
+          }
+        });
+      }, { rootMargin: '200px 0px' }).observe(logoVideo);
+    } else {
+      logoVideo.play().catch(() => {});
+    }
+  }
+
   /* ---------- THEME TOGGLE ---------- */
   const themeBtn = document.getElementById('theme-toggle');
   const html = document.documentElement;
@@ -208,10 +247,10 @@
   });
 
   /* ---------- CONTACT EMAIL (assembled at runtime; kept out of static HTML) ----------
-     Ryan's address is base64-encoded so it never appears as plaintext in the page
+     Ryan's address (dundasmediaservices@ since V4, 2026-11-06) is base64-encoded so it never appears as plaintext in the page
      source. We decode it here to wire the mailto link and the FormSubmit endpoints,
      which defeats the overwhelming majority of email-harvesting scrapers. */
-  const CONTACT_EMAIL = (() => { try { return atob('ZHVuZGFzcndAZ21haWwuY29t'); } catch (e) { return ''; } })();
+  const CONTACT_EMAIL = (() => { try { return atob('ZHVuZGFzbWVkaWFzZXJ2aWNlc0BnbWFpbC5jb20='); } catch (e) { return ''; } })();
 
   // Reveal the real mailto on the contact link(s).
   document.querySelectorAll('.js-email').forEach((a) => {
@@ -270,11 +309,13 @@
   /* ---------- SCROLL REVEAL (staggered, one-shot, hover-safe) ---------- */
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealSelector = [
-    '.hero-content > *', '.trust-tv', '.logo-bar', '.featured-item',
+    // Hero copy is excluded: it has its own 10s CSS intro (styles.css "Hero intro").
+    '.trust-tv', '.logo-bar', '.featured-item',
     '.section-header', '.reel-frame', '.video-card',
     '.onset-item', '.rtv-copy', '.rtv-photo', '.crew-roles',
     '.service-card', '.process-step', '.about-photo',
-    '.about-text', '.about-gallery figure', '.contact-form', '.contact-details'
+    '.about-text', '.about-gallery figure', '.tour-embed', '.tour-explainer',
+    '.contact-form', '.contact-details'
   ].join(',');
   const revealEls = Array.from(document.querySelectorAll(revealSelector));
 

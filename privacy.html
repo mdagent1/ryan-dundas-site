@@ -12,7 +12,7 @@
   <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="fonts/fonts.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=4">
   <script>
     (function () {
       try { if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light'); } catch (e) {}
@@ -23,7 +23,10 @@
 <body>
   <header class="nav" id="nav">
     <div class="nav-inner">
-      <a href="index.html" class="wordmark" aria-label="Ryan Dundas — home">Ryan Dundas</a>
+      <a href="index.html" class="brand-logo" aria-label="Dundas Media Services, home">
+        <img class="logo-on-dark" src="images/logo-dms-dark.webp" width="735" height="120" alt="" decoding="async">
+        <img class="logo-on-light" src="images/logo-dms-light.webp" width="735" height="120" alt="" decoding="async">
+      </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html#featured">Work</a>
         <a href="index.html#services">Services</a>
@@ -37,7 +40,7 @@
     <div class="container" style="max-width: 760px;">
       <header class="section-header">
         <h2>Privacy Policy</h2>
-        <p>Last updated: October 20, 2026</p>
+        <p>Last updated: November 6, 2026</p>
       </header>
 
       <div class="legal-copy">
@@ -51,6 +54,9 @@
 
         <h3>Embedded video</h3>
         <p>Portfolio videos are embedded from YouTube and Vimeo. To protect your privacy, video players load as static images and only connect to YouTube or Vimeo (which may set their own cookies) after you click play. If you never play a video, those services are not contacted.</p>
+
+        <h3>Virtual tour</h3>
+        <p>The sample virtual tour is hosted by net-fs.com (3DVista tour hosting). It works the same way: the tour shows as a still image and only loads from their servers after you click to start it.</p>
 
         <h3>Fonts and hosting</h3>
         <p>Web fonts are served from this site directly, not from a third-party font network, so your visit is not shared with a font provider. The site is hosted on GitHub Pages, which, like most web hosts, may record standard server request information such as IP addresses for security and reliability.</p>
