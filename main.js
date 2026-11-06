@@ -5,7 +5,7 @@
    - FAQ accordion (one open at a time)
    - Nav scroll behavior + active-section highlighting
    - Smooth scroll for anchor links
-   - Contact form (Netlify Forms + fetch + JS fallback success state)
+   - Contact form (Web3Forms + fetch, inline success / error states)
 */
 
 (function () {
@@ -287,8 +287,9 @@
 
   /* ---------- CONTACT EMAIL (assembled at runtime; kept out of static HTML) ----------
      Ryan's address (dundasmediaservices@ since V4, 2026-11-06) is base64-encoded so it never appears as plaintext in the page
-     source. We decode it here to wire the mailto link and the FormSubmit endpoints,
-     which defeats the overwhelming majority of email-harvesting scrapers. */
+     source. We decode it here to wire the mailto link(s), which defeats the
+     overwhelming majority of email-harvesting scrapers. (The form no longer needs
+     the address at all: Web3Forms routes by access key.) */
   const CONTACT_EMAIL = (() => { try { return atob('ZHVuZGFzbWVkaWFzZXJ2aWNlc0BnbWFpbC5jb20='); } catch (e) { return ''; } })();
 
   // Reveal the real mailto on the contact link(s).
@@ -298,13 +299,17 @@
     a.textContent = CONTACT_EMAIL;
   });
 
-  /* ---------- CONTACT FORM (FormSubmit AJAX → Ryan's inbox) ---------- */
+  /* ---------- CONTACT FORM (Web3Forms AJAX → Ryan's inbox) ----------
+     Switched from FormSubmit on 2026-11-06 after a multi-hour FormSubmit outage.
+     The access key lives in the form's hidden "access_key" input (public by design).
+     Success shows the thank-you panel; ANY failure (service down, network error,
+     rejected submission) shows an inline "email me directly" message instead of
+     sending the visitor to an error page, so no inquiry is silently lost. */
   const form = document.getElementById('contact-form');
   const successEl = document.getElementById('contact-success');
+  const errorEl = document.getElementById('form-error');
   const submitBtn = document.getElementById('submit-btn');
-  // Set the form's POST target at runtime (non-JS fallback), and the AJAX endpoint.
-  if (form && CONTACT_EMAIL) form.setAttribute('action', 'https://formsubmit.co/' + CONTACT_EMAIL);
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
+  const FORM_ENDPOINT = 'https://api.web3forms.com/submit';
 
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -314,34 +319,41 @@
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
+      if (errorEl) errorEl.hidden = true;
 
-      const formData = new FormData(form);
       const data = {};
-      formData.forEach((v, k) => { data[k] = v; });
+      new FormData(form).forEach((v, k) => { data[k] = v; });
+
+      const showError = () => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        if (errorEl) errorEl.hidden = false;
+      };
+
+      // Give up after 20 s so a hung service never leaves "Sending…" forever.
+      const controller = 'AbortController' in window ? new AbortController() : null;
+      const timer = controller ? setTimeout(() => controller.abort(), 20000) : null;
 
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data),
+        signal: controller ? controller.signal : undefined,
       })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json && (json.success === true || json.success === 'true')) {
+        .then(async (res) => {
+          let json = {};
+          try { json = await res.json(); } catch (err) { /* non-JSON error page */ }
+          if (res.ok && json && (json.success === true || json.success === 'true')) {
             form.hidden = true;
             if (successEl) successEl.hidden = false;
             submitBtn.disabled = false;
             submitBtn.textContent = originalLabel;
           } else {
-            // e.g. first-time activation pending — fall back to a full submit
-            // so FormSubmit's own flow (and confirmation) can complete.
-            form.submit();
+            showError();
           }
         })
-        .catch(() => {
-          // Network/CORS issue: fall back to a normal form POST so the
-          // message still goes through (uses the form's action + _next).
-          form.submit();
-        });
+        .catch(showError)
+        .finally(() => { if (timer) clearTimeout(timer); });
     });
   }
 

@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="vendor/lite-yt-embed.css">
 
   <!-- Site styles -->
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 
   <!-- Theme + reveal bootstrap (inline, runs before paint to avoid flash) -->
   <script>
@@ -907,16 +907,18 @@
           <p>Tell me about your project and I'll get back to you within 24 hours.</p>
         </header>
 
-        <form method="POST" class="contact-form" id="contact-form">
-          <!-- FormSubmit.co endpoint (with Ryan's address) is assembled by main.js at
-               runtime so the email never appears in the page source for scrapers. -->
-          <input type="hidden" name="_subject" value="New inquiry from dundasmediaservices.com">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://dundasmediaservices.com/#contact">
-          <!-- honeypot: bots fill this, humans can't see it -->
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
-
+        <form method="POST" action="https://api.web3forms.com/submit" class="contact-form" id="contact-form">
+          <!-- Web3Forms (2026-11-06, replaced FormSubmit after a multi-hour outage).
+               The access key is public by design: it only lets this form send to
+               Ryan's inbox, and his address never appears in the page source.
+               The visitor's "email" field becomes the reply-to automatically. -->
+          <input type="hidden" name="access_key" value="2a589817-b0f7-4d31-8f85-c79ab4cbcf04">
+          <input type="hidden" name="subject" value="New inquiry from dundasmediaservices.com">
+          <input type="hidden" name="from_name" value="dundasmediaservices.com">
+          <!-- No-JS fallback only: where Web3Forms sends the visitor after a plain POST. -->
+          <input type="hidden" name="redirect" value="https://dundasmediaservices.com/#contact">
+          <!-- Honeypot: bots tick it, humans never see it -->
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none;">
 
           <div class="form-row">
             <div class="form-field">
@@ -966,6 +968,12 @@
           </div>
 
           <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Send Message</button>
+
+          <!-- Shown if the form service can't be reached, so no inquiry is silently lost. -->
+          <p class="form-error" id="form-error" role="alert" hidden>
+            Sorry, your message didn't go through. Please try again, or email me directly at
+            <a href="#contact" class="js-email">my email</a>.
+          </p>
         </form>
 
         <div class="contact-success" id="contact-success" hidden>
@@ -1027,6 +1035,6 @@
 
   <!-- Scripts -->
   <script src="vendor/lite-yt-embed.js" defer></script>
-  <script src="main.js?v=6" defer></script>
+  <script src="main.js?v=7" defer></script>
 </body>
 </html>
