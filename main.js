@@ -57,6 +57,45 @@
     }
   }
 
+  /* ---------- PHOTO VIEWER (V5) ----------
+     Click (or Enter/Space on) any On Set, Reality TV or About photo to see it full
+     screen. Close with the X, by clicking the photo or the dark area, or with Esc. */
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox && typeof lightbox.showModal === 'function') {
+    const lbImg = lightbox.querySelector('.lightbox-img');
+    const lbClose = lightbox.querySelector('.lightbox-close');
+    let opener = null;
+    const openPhoto = (img) => {
+      opener = img;
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lightbox.showModal();
+      document.documentElement.classList.add('lightbox-open');
+      lbClose.focus();
+    };
+    const closePhoto = () => { if (lightbox.open) lightbox.close(); };
+    lightbox.addEventListener('close', () => {
+      document.documentElement.classList.remove('lightbox-open');
+      lbImg.src = 'data:,';
+      if (opener) opener.focus({ preventScroll: true });
+    });
+    lbClose.addEventListener('click', closePhoto);
+    lbImg.addEventListener('click', closePhoto);
+    // The dialog fills the screen; a click that lands on it (not the photo or X) is the backdrop.
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePhoto(); });
+
+    document.querySelectorAll('.onset-item img, .rtv-photo img, .about-photo img, .about-gallery img').forEach((img) => {
+      img.classList.add('zoomable');
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'View full screen: ' + (img.alt || 'photo'));
+      img.addEventListener('click', () => openPhoto(img));
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPhoto(img); }
+      });
+    });
+  }
+
   /* ---------- THEME TOGGLE ---------- */
   const themeBtn = document.getElementById('theme-toggle');
   const html = document.documentElement;
