@@ -45,6 +45,10 @@ html.light {
 
 /* ---------- Reset / base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
+/* The hidden attribute must always win. Without this, rules like .contact-form { display: flex }
+   override it, so the filled-in form stayed on screen above "Thanks!" after a successful send
+   (found in the live Web3Forms test, 2026-11-10). */
+[hidden] { display: none !important; }
 
 html {
   scroll-behavior: smooth;
